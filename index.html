@@ -1,0 +1,59 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Object-oriented Javascript demo application</title>
+        <meta name="description" content="This project demonstrates object-oriented features of Javascript">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/oo.css">
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="hidden">
+          <!-- default object -->
+          <div id="obj" class="ui-state-default">
+              <span class="label">Object</span>
+              <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+              <textarea class="default-json-object" name="obj1" rows="4" cols="40"></textarea>
+          </div>
+        </div>
+
+        <p>You can define JSON objects, each object inherits from all preceeding objects.</p>
+        <div id="objects">
+        </div>
+        <button id="add-object" type="submit">Add Object</button>
+
+        <p>
+          <b>Example:</b>
+          Let us assume that that the above objects represent language blocks and its properties represent variable definitions.
+          Then here is how the code snippet would look like in language:
+          <select name="language" id="language">
+            <option value="0">Javascript</option>
+            <option value="1">Ruby</option>
+            <!-- TODO: Python, ES6, -->
+          </select>
+        </p>
+        <pre id="snippet"></pre>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+
+        <!-- <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
+        <script src="js/vendor/jquery-ui.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <!-- application files -->
+        <script src="js/oo.js"></script>
+        <script src="js/oo-ui.js"></script>
+    </body>
+</html>
