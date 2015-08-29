@@ -1,9 +1,15 @@
-// "imported" from oo.js:
-// - objectModule
-// - js
-// - ruby
-var initialJsonObjects = objectModule.randomObjects();
-// var exampleObjects = [{a: 'obj1_a'}, {a: 'obj2_a', b: 'obj2_b'}, {a: 'obj3_a', c: 'obj3_c'}];
+/*
+"Imports" from other application modules
+
+object-helper.js:
+ - objectHelper
+
+language.js:
+ - js
+ - ruby
+*/
+
+var initialJsonObjects = objectHelper.randomObjects();
 
 // single object holding the whole state of the UI
 // including operation changing state
@@ -57,7 +63,7 @@ ui.render = function() {
 
 ui.renderObjects = function() {
   // TODO: prototype is not really used, print available properties for each object
-  objectModule.chainObjects(ui.jsonObjects);
+  objectHelper.chainObjects(ui.jsonObjects);
   for (var i = 0, l = ui.jsonObjects.length; i < l; i ++) {
     ui.newObject(ui.jsonObjects[i], i);
   }
