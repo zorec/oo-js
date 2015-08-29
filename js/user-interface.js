@@ -5,11 +5,15 @@ object-helper.js:
  - objectHelper
 
 language.js:
- - js
- - ruby
+ - JavaScript
+ - Ruby
 */
 
-var initialJsonObjects = objectHelper.randomObjects();
+// integration layer
+var initialValues = {
+  jsonObjects: objectHelper.randomObjects(),
+  languages: [new JavaScript(), new Ruby()]
+}
 
 // single object holding the whole state of the UI
 // including operation changing state
@@ -23,9 +27,9 @@ var ui = {
   // don't prefetch, use most up to date value
   textareasSelector: '.json-object',
 
-  jsonObjects: initialJsonObjects,
-  availableLanguages: [js, ruby],
-  currentLanguage: js,
+  jsonObjects: initialValues.jsonObjects,
+  availableLanguages: initialValues.languages,
+  currentLanguage: initialValues.languages[0],
   // rendered (ui) objects
   objectsCount: 0,
 }
@@ -62,7 +66,7 @@ ui.render = function() {
 }
 
 ui.renderObjects = function() {
-  // TODO: prototype is not really used, print available properties for each object
+  // TODO: print available properties for each object
   objectHelper.chainObjects(ui.jsonObjects);
   for (var i = 0, l = ui.jsonObjects.length; i < l; i ++) {
     ui.newObject(ui.jsonObjects[i], i);

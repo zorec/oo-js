@@ -1,3 +1,8 @@
+/*
+"Exports" of this module:
+ - objectHelper
+*/
+
 var objectHelper = {
   // accepts an array of objects whose prototypes are chained chained
   // every object inherits from all preceeding ones
@@ -48,9 +53,11 @@ var objectHelper = {
 }
 
 // USAGE OF MODULE:
+/*
 var globalBlock = {a: 'global block'},
   functionBlock = {a: 'function block', b: 'inside whole function block'},
   lastBlock = {a: 'immediately invoked function', c: 'only last block'};
 
 var items = [globalBlock, functionBlock, lastBlock];
 objectHelper.chainObjects(items);
+*/
