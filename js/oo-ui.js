@@ -19,24 +19,55 @@ var ui = {
 
   jsonObjects: initialJsonObjects,
   availableLanguages: [js, ruby],
-  // index to the previous array
-  currentLanguage: 0,
-  // drawn (ui) objects
+  currentLanguage: js,
+  // rendered (ui) objects
   objectsCount: 0,
 }
+
+ui.init = function() {
+  // allow to add objects
+  ui.addObject.click(function() {
+    ui.newObject();
+  });
+
+  // TODO: allow to remove object
+
+  // allow sorting of objects
+  ui.objectsList.sortable({
+    // re-render when order changed
+    update:  ui.reorder,
+    cursor: 'move',
+    connectWith: '#objects'
+    //axis: 'x',
+    // placeholder: true,
+  });
+  ui.objectsList.disableSelection();
+
+  ui.selectLanguage.change(function () {
+    ui.currentLanguage = ui.availableLanguages[Number(ui.selectLanguage.val())];
+    ui.snippet.prop('class', ui.currentLanguage.getName().toLowerCase());
+    ui.renderSnippet();
+  });
+}
+
 ui.render = function() {
+  ui.renderObjects();
+  ui.renderSnippet();
+}
+
+ui.renderObjects = function() {
   // TODO: prototype is not really used, print available properties for each object
   objectModule.chainObjects(ui.jsonObjects);
   for (var i = 0, l = ui.jsonObjects.length; i < l; i ++) {
     ui.newObject(ui.jsonObjects[i], i);
   }
-  ui.renderSnippet();
 };
 
 ui.renderSnippet = function() {
-  ui.snippet.text(
-    ui.availableLanguages[ui.currentLanguage].snippet(ui.jsonObjects)
-  );
+  ui.snippet.text(ui.currentLanguage.snippet(ui.jsonObjects));
+  ui.snippet.each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
 }
 
 ui.reorder = function() {
@@ -77,32 +108,10 @@ ui.newObject = function(jsonObject, index) {
   ui.objectsList.append(newObject);
 };
 
+// document ready
 $(function() {
-  // init application
+  ui.init();
   ui.render();
-
-  // allow to add objects
-  ui.addObject.click(function() {
-    ui.newObject();
-  });
-
-  // TODO: allow to remove object
-
-  // allow sorting of objects
-  ui.objectsList.sortable({
-    // re-render when order changed
-    update:  ui.reorder,
-    cursor: 'move',
-    connectWith: '#objects'
-    //axis: 'x',
-    // placeholder: true,
-  });
-  ui.objectsList.disableSelection();
-
-  ui.selectLanguage.change(function () {
-    ui.currentLanguage = Number(ui.selectLanguage.val());
-    ui.renderSnippet();
-  });
 });
 
 
