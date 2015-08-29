@@ -105,17 +105,17 @@ Language.prototype.getName = function() {
   return this.name;
 }
 
-var Javascript = function() {
-  Language.call(this, 'Javascript');
+var JavaScript = function() {
+  Language.call(this, 'JavaScript');
 }
-Javascript.prototype = Object.create(Language.prototype);
+JavaScript.prototype = Object.create(Language.prototype);
 
 function Ruby() {
   Language.call(this, 'Ruby');
 }
 Ruby.prototype = Object.create(Language.prototype);
 
-var js = new Javascript();
+var js = new JavaScript();
 var ruby = new Ruby();
 
 // 3. multiple inheritance or mixin pattern
@@ -130,16 +130,16 @@ var ruby = new Ruby();
 // POLYMOPRHISM
 // ########################################################
 console.log(js.getName());
-Javascript.prototype.variable = function(name, value) {
+JavaScript.prototype.variable = function(name, value) {
   return 'var ' + name + ' = ' + value + ';';
 }
-Javascript.prototype.if = function(cond, body) {
+JavaScript.prototype.if = function(cond, body) {
   var cond = 'condition';
   return 'if (' + cond + ') {\n' +
    '  // code to execute \n' +
    '}\n';
 };
-Javascript.prototype.block = function(body) {
+JavaScript.prototype.block = function(body) {
   return ['function() {', body(), '}'].join('\n');
 }
 console.log(js.variable('concept', 'polymorphism'));
