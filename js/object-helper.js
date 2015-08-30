@@ -48,7 +48,7 @@ var objectHelper = {
     for (var prop in obj) {
       deepCopy[prop] = obj[prop];
     }
-    return obj;
+    return deepCopy;
   }
 }
 

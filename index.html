@@ -26,11 +26,16 @@
           <div id="obj" class="ui-state-default">
               <span class="label">Object</span>
               <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+              <div class="prototype-placeholder"></div>
               <textarea class="default-json-object" name="obj1" rows="4" cols="40"></textarea>
+              <div>All accessible properties:
+                <p class="accessible-properties">
+                </p>
+              </div>
           </div>
         </div>
 
-        <p>You can define JSON objects, each object inherits from all preceeding objects.</p>
+        <p>Define JSON objects and how they inherit from each other. By default, each object inherits from all preceeding objects.</p>
         <div id="objects">
         </div>
         <button id="add-object" type="submit">Add Object</button>
@@ -45,6 +50,7 @@
             <!-- TODO: Python, ES6, -->
           </select>
         </p>
+        <button type="refresh">Refresh</button>
         <pre><code id="snippet"></code></pre>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
