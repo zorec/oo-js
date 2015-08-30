@@ -57,9 +57,13 @@ Language.prototype.blocksSnippet = function(blocks, prefix) {
   prefix += '  ';
   return blocks.map(function(currentBlock) {
     var blockCode = self.block(function() {
-      return currentBlock.variables.concat(
-        self.blocksSnippet(currentBlock.children, prefix)
-      ).map(function(line) {
+      // join variables with children blocks if present
+      if (currentBlock.children.length) {
+        currentBlock.variables = currentBlock.variables.concat(
+          self.blocksSnippet(currentBlock.children, prefix)
+        )
+      }
+      return currentBlock.variables.map(function(line) {
         return prefix + line;
       }).join('\n');
     });
