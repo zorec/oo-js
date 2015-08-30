@@ -21,14 +21,19 @@ Language.prototype.objects2blocks = function(objects) {
   var blocks = [],
     topLevelBlocks,
     currentBlock,
-    self = this;
+    self = this,
+    value;
   // build linear blocks without hierarchy
   blocks = objects.map(function(obj, index) {
     return {
       ref: obj,
       parentBlockIndex: objects.indexOf(Object.getPrototypeOf(obj)),
       variables: Object.keys(obj).map(function(varName) {
-        return self.variable(varName, obj[varName]);
+        value = obj[varName];
+        if (typeof value == 'string') {
+          value = '"' + value + '"';
+        }
+        return self.variable(varName, value);
       }),
       children: []
     };
@@ -82,9 +87,6 @@ var JavaScript = function() {
 JavaScript.prototype = Object.create(Language.prototype);
 
 JavaScript.prototype.variable = function(name, value) {
-  if (typeof value == 'string') {
-    value = '"' + value + '"';
-  }
   return 'var ' + name + ' = ' + value + ';';
 }
 
@@ -99,9 +101,6 @@ function Ruby() {
 Ruby.prototype = Object.create(Language.prototype);
 
 Ruby.prototype.variable = function(name, value) {
-  if (typeof value == 'string') {
-    value = '"' + value + '"';
-  }
   return name + ' = ' + value;
 };
 
