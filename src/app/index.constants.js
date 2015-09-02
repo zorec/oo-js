@@ -1,10 +1,10 @@
-/* global malarkey:false, toastr:false, moment:false */
+/* global objectHelper:false, toastr:false, moment:false */
 (function() {
   'use strict';
 
   angular
     .module('ooJS')
-    .constant('malarkey', malarkey)
+    .constant('objectHelper', objectHelper)
     .constant('toastr', toastr)
     .constant('moment', moment);
 

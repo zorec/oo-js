@@ -1,12 +1,54 @@
-<div>
-  <div class="ui-state-default">
-      <span class="label">Object</span>
-      <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
-      <div class="prototype-placeholder"></div>
-      <textarea class="default-json-object" name="obj1" rows="4" cols="40"></textarea>
-      <div>All accessible properties:
-        <p class="accessible-properties">
-        </p>
-      </div>
+<p>Define JSON objects and how they inherit from each other. By default, each object inherits from all preceeding objects.</p>
+<div ng-repeat="jsonObject in o.jsonObjects track by $index">
+  <md-input-container>
+    <label>Prototype:</label>
+    <md-select
+      aria-label="prototype"
+      ng-change="o.changePrototype($index)"
+      ng-model="o.inheritFromIndexes[$index]"
+    >
+      <md-option value="-1">None (Object)</md-option>
+      <md-option
+        ng-if="$parent.$index != $index"
+        ng-repeat="option in o.jsonObjects track by $index"
+        value="{{$index}}"
+      >
+        Object {{$index + 1}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+
+  <md-input-container>
+    <label>Object {{$index + 1}}</label>
+    <textarea json-text ng-model="jsonObject" columns="3"></textarea>
+  </md-input-container>
+  <div class="accessible-properties">
+    Accessible properties:
+    <p>
+      {{o.accessibleProperties(jsonObject)}}
+    </p>
   </div>
+  <md-divider ng-if="!$last"></md-divider>
 </div>
+<md-button class="md-raised md-primary" ng-click="o.addObject()">Add Object</md-button>
+
+
+<p>
+  <b>Example:</b>
+  Let us assume that that the above objects represent language blocks and its properties represent variable definitions.
+  Then here is how the code snippet would look like in language:
+  <md-input-container>
+    <label>Language:</label>
+    <md-select
+      aria-label="language"
+      name="language"
+      ng-model="o.currentLanguageIndex"
+      ng-change="o.changeLanguage()"
+    >
+      <md-option ng-repeat="language in o.languages track by $index" value="{{$index}}">
+        {{language.getName()}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+  <pre><code id="snippet">{{o.snippet}}</code></pre>
+</p>

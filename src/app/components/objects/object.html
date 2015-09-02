@@ -1,0 +1,12 @@
+<md-input-container>
+  <label>S</label>
+  <md-select aria-labeled-by="prototype" ng-model="o.inheritFrom">
+    <md-option ng-repeat="option in o.prototypeOptions(3)" value="{{option.value}}">
+      {{option.name}}
+    </md-option>
+  </md-select>
+</md-input-container>
+<md-input-container>
+  <label>Object {{$index + 1}}</label>
+  <textarea json-text ng-model="jsonObject" columns="3"></textarea>
+</md-input-container>
