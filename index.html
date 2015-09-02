@@ -17,25 +17,13 @@
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css">
     </head>
-    <body>
+    <body ng-app="oo-playground">
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div class="hidden">
-          <!-- default object -->
-          <div id="obj" class="ui-state-default">
-              <span class="label">Object</span>
-              <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
-              <div class="prototype-placeholder"></div>
-              <textarea class="default-json-object" name="obj1" rows="4" cols="40"></textarea>
-              <div>All accessible properties:
-                <p class="accessible-properties">
-                </p>
-              </div>
-          </div>
-        </div>
 
         <p>Define JSON objects and how they inherit from each other. By default, each object inherits from all preceeding objects.</p>
+        <objects></objects>
         <div id="objects">
         </div>
         <button id="add-object" type="submit">Add Object</button>
@@ -58,12 +46,15 @@
 
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
 
         <script src="js/plugins.js"></script>
 
         <!-- application files -->
         <script src="js/object-helper.js"></script>
         <script src="js/language.js"></script>
-        <script src="js/user-interface.js"></script>
+        <!-- angular user interface files -->
+        <script src="js/angular-ui/oo-playground.js"></script>
+        <script src="js/angular-ui/objects/objects.js"></script>
     </body>
 </html>
