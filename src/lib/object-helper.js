@@ -49,6 +49,21 @@ var objectHelper = {
       deepCopy[prop] = obj[prop];
     }
     return deepCopy;
+  },
+  isValidPrototype: function (obj, newPrototype) {
+    var backupPrototype = Object.getPrototypeOf(obj),
+      isValid = true;
+
+    try {
+      Object.setPrototypeOf(obj, newPrototype);
+    }
+    catch (err) {
+      // probably cycle in prototype chain
+      isValid = false;
+    }
+
+    Object.setPrototypeOf(obj, backupPrototype);
+    return isValid;
   }
 }
 

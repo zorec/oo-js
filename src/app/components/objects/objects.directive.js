@@ -41,19 +41,8 @@
       };
 
       this.isValidPrototype = function (jsonObject, inheritFromIndex) {
-        var backupPrototype = Object.getPrototypeOf(jsonObject),
-          isValid = true;
-
-        try {
-          Object.setPrototypeOf(jsonObject, this.jsonObjects[inheritFromIndex]);
-        }
-        catch (err) {
-          // probably cycle in prototype chain
-          isValid = false;
-        }
-
-        Object.setPrototypeOf(jsonObject, backupPrototype);
-        return isValid;
+        return objectHelper
+          .isValidPrototype(jsonObject, this.jsonObjects[inheritFromIndex]);
       };
 
       this.changePrototype = function (changedIndex) {
