@@ -13,17 +13,27 @@
     }
 
     function ObjectsController (objectHelper, Ruby, JavaScript) {
-      this.jsonObjects = objectHelper.randomObjects();
-      objectHelper.chainObjects(this.jsonObjects);
-      this.inheritFromIndexes = this.jsonObjects.map(function (item, index) {
-        return index - 1;
-      });
-      // TODO: Python, ES6
-      this.languages = [new JavaScript(), new Ruby()];
-      this.currentLanguageIndex = 0;
+      this.init = function () {
+        // TODO: Python, ES6
+        this.languages = [new JavaScript(), new Ruby()];
+        this.currentLanguageIndex = 0;
+        this.randomCount = 3;
+        this.generateObjects();
+      };
+
+      this.generateObjects = function () {
+        this.jsonObjects = objectHelper.randomObjects(this.randomCount);
+        objectHelper.chainObjects(this.jsonObjects);
+        this.inheritFromIndexes = this.jsonObjects.map(function (item, index) {
+          return index - 1;
+        });
+        this.updateSnippet();
+      };
 
       this.addObject = function() {
-        this.jsonObjects.push({});
+        var jsonObject = {};
+        this.jsonObjects.push(jsonObject);
+        this.inheritFromIndexes.push(-1);
       };
 
       this.accessibleProperties = function (index) {
@@ -64,11 +74,9 @@
         }
         this.currentLanguage = this.languages[this.currentLanguageIndex];
         this.snippet = this.currentLanguage.snippet(this.jsonObjects);
-        // TODO: syntax highlighting
-        // ui.snippet.each(function(i, block) {
-        //   hljs.highlightBlock(block);
-        // });
       };
+
+      this.init();
     }
 
 }());

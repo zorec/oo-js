@@ -19,7 +19,7 @@ var objectHelper = {
   MAX_VALUE: 100,
   OBJECTS_COUNT: 3,
   randomObjects: function(count) {
-    var l = this.randomNumber(count || this.OBJECTS_COUNT, 2),
+    var l = count || this.OBJECTS_COUNT,
       arr = [];
     for (var i = 0; i < l; i ++) {
       arr.push(this.randomObject());
