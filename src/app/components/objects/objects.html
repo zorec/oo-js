@@ -1,69 +1,66 @@
-<h2>Inheritance</h2>
-<p>
-  Define JSON objects and how they inherit from each other. By default, each object inherits from all preceeding objects.
-</p>
-<div layout="row">
-  <md-input-container>
-    <label>count</label>
-    <input type="number" min="1" ng-model="o.randomCount">
-  </md-input-container>
-  <md-button ng-click="o.generateObjects()"> Generate random objects </md-button>
-</div>
-<div layout="row" ng-repeat="jsonObject in o.jsonObjects track by $index">
-  <md-input-container flex="35">
-    <label>Object {{$index + 1}}</label>
-    <textarea json-text ng-change="o.updateSnippet($index, jsonObject)" ng-model="jsonObject"></textarea>
-  </md-input-container>
+<div id="objects">
+  <h2>Inheritance</h2>
+  <p>
+    Define JSON objects and how they inherit from each other. By default, each object inherits from all preceeding objects.
+  </p>
+  <div layout="row">
+    <md-input-container>
+      <label>count</label>
+      <input type="number" min="1" ng-model="o.randomCount">
+    </md-input-container>
+    <md-button ng-click="o.generateObjects()"> Generate random objects </md-button>
+  </div>
+  <div layout="row" ng-repeat="jsonObject in o.jsonObjects track by $index">
+    <md-input-container flex="35">
+      <label>Object {{$index + 1}}</label>
+      <textarea json-text ng-change="o.updateSnippet($index, jsonObject)" ng-model="jsonObject"></textarea>
+    </md-input-container>
 
-  <md-input-container flex="20">
-    <md-select
-      ng-model="o.inheritFromIndexes[$index]"
-      ng-change="o.changePrototype($index); o.updateSnippet()"
-      aria-label="prototype"
-    >
-      <md-option value="-1">None (Object)</md-option>
-      <md-option
-        ng-if="o.isValidPrototype(jsonObject, $index)"
-        ng-repeat="option in o.jsonObjects track by $index"
-        ng-value="$index"
+    <md-input-container flex="20">
+      <md-select
+        ng-model="o.inheritFromIndexes[$index]"
+        ng-change="o.changePrototype($index); o.updateSnippet()"
+        aria-label="prototype"
       >
-        Object {{$index + 1}}
-      </md-option>
-    </md-select>
-  </md-input-container>
+        <md-option value="-1">None (Object)</md-option>
+        <md-option
+          ng-if="o.isValidPrototype(jsonObject, $index)"
+          ng-repeat="option in o.jsonObjects track by $index"
+          ng-value="$index"
+        >
+          Object {{$index + 1}}
+        </md-option>
+      </md-select>
+    </md-input-container>
 
-  <div layout="column" flex="45" class="accessible-properties">
-    <p>
-      <md-tooltip md-direction="bottom">
-        All accessible properties on object {{$index + 1}}
-      </md-tooltip>
-      {{o.accessibleProperties($index)}}
-    </p>
+    <div layout="column" flex="45" class="accessible-properties">
+      <p>
+        <md-tooltip md-direction="bottom">
+          All accessible properties on the object {{$index + 1}}
+        </md-tooltip>
+        {{o.accessibleProperties($index)}}
+      </p>
+    </div>
+
+    <md-divider ng-if="!$last"></md-divider>
   </div>
+  <md-button class="md-raised md-primary" ng-click="o.addObject()">Add Object</md-button>
 
-  <md-divider ng-if="!$last"></md-divider>
+  <h2>Polymorphism</h2>
+    <b>Example:</b>
+    Let us assume that that the above objects represent language blocks and its properties represent variable definitions.
+    Then here is how the code snippet would look like in language:
+    <md-input-container>
+      <md-select
+        aria-label="language"
+        name="language"
+        ng-model="o.currentLanguageIndex"
+        ng-change="o.updateSnippet()"
+      >
+        <md-option ng-repeat="language in o.languages track by $index" value="{{$index}}">
+          {{language.getName()}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+    <div hljs source="o.snippet"></div>
 </div>
-<md-button class="md-raised md-primary" ng-click="o.addObject()">Add Object</md-button>
-
-
-<h2>Polymorphism</h2>
-<p>
-  <b>Example:</b>
-  Let us assume that that the above objects represent language blocks and its properties represent variable definitions.
-  Then here is how the code snippet would look like in language:
-  <md-input-container>
-    <md-select
-      aria-label="language"
-      name="language"
-      ng-model="o.currentLanguageIndex"
-      ng-change="o.updateSnippet()"
-    >
-      <md-option ng-repeat="language in o.languages track by $index" value="{{$index}}">
-        {{language.getName()}}
-      </md-option>
-    </md-select>
-  </md-input-container>
-  <div hljs source="o.snippet">
-
-  </div>
-</p>
