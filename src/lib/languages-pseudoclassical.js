@@ -82,9 +82,8 @@ Language.prototype.blocksSnippet = function(blocks, prefix) {
 
 /* JavaScript */
 var JavaScript = function() {
-  Language.call(this, 'JavaScript');
 }
-JavaScript.prototype = Object.create(Language.prototype);
+JavaScript.prototype = new Language('JavaScript');
 
 JavaScript.prototype.variable = function(name, value) {
   return 'var ' + name + ' = ' + value + ';';
@@ -96,9 +95,8 @@ JavaScript.prototype.block = function(body) {
 
 /* Ruby */
 function Ruby() {
-  Language.call(this, 'Ruby');
 }
-Ruby.prototype = Object.create(Language.prototype);
+Ruby.prototype = new Language('Ruby');
 
 Ruby.prototype.variable = function(name, value) {
   return name + ' = ' + value;
