@@ -12,37 +12,56 @@
       };
     }
 
-    function ObjectsController (objectHelper) {
+    function ObjectsController (objectHelper, Ruby, JavaScript) {
       this.jsonObjects = objectHelper.randomObjects();
       objectHelper.chainObjects(this.jsonObjects);
       this.inheritFromIndexes = this.jsonObjects.map(function (item, index) {
         return index - 1;
       });
+      // TODO: Python, ES6
+      this.languages = [new JavaScript(), new Ruby()];
+      this.currentLanguageIndex = 0;
 
       this.addObject = function() {
         this.jsonObjects.push({});
       };
 
-      this.accessibleProperties = function (jsonObject) {
-        return objectHelper.deepCopy(jsonObject);
+      this.accessibleProperties = function (index) {
+        return objectHelper.deepCopy(this.jsonObjects[index]);
+      };
+
+      this.isValidPrototype = function (jsonObject, inheritFromIndex) {
+        var backupPrototype = Object.getPrototypeOf(jsonObject),
+          isValid = true;
+
+        try {
+          Object.setPrototypeOf(jsonObject, this.jsonObjects[inheritFromIndex]);
+        }
+        catch (err) {
+          // probably cycle in prototype chain
+          isValid = false;
+        }
+
+        Object.setPrototypeOf(jsonObject, backupPrototype);
+        return isValid;
       };
 
       this.changePrototype = function (changedIndex) {
         var currentValue = Number(this.inheritFromIndexes[changedIndex]),
           inheritFrom = Object;
 
-        if (currentValue != -1) {
+        if (currentValue !== -1) {
           inheritFrom = this.jsonObjects[currentValue];
         }
 
         Object.setPrototypeOf(this.jsonObjects[changedIndex], inheritFrom);
       };
 
-
-      // TODO: Python, ES6
-      this.languages = [new JavaScript(), new Ruby()];
-      this.currentLanguageIndex = 0;
-      this.changeLanguage = function () {
+      this.updateSnippet = function (index, jsonObject) {
+        if (typeof index !== 'undefined') {
+          angular.extend(this.jsonObjects[index], jsonObject);
+          this.changePrototype(index);
+        }
         this.currentLanguage = this.languages[this.currentLanguageIndex];
         this.snippet = this.currentLanguage.snippet(this.jsonObjects);
         // TODO: syntax highlighting
@@ -50,7 +69,6 @@
         //   hljs.highlightBlock(block);
         // });
       };
-     this.changeLanguage();
     }
 
 }());
