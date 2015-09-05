@@ -5,7 +5,34 @@
  - rubyF
 */
 
+/**
+ OO CONCEPT: INHERITANCE (functional pattern)
+  As described by Douglas Crockford, functional pattern of inheritance uses simple functions,
+  not constructor functions, which require use of new operator
+  That's why functional pattern can be combined with functional features of JavaScript.
+  Another advantage is encapsulation (see below). The object is created in function and returned.
+  This pattern can be combined with other inheritance patterns that's why it is the most flexible pattern of inheritance.
+
+  In this example, when languageF is called it returns new language object, which is augemented in rubyF and jsF.
+  One may argue, that it is not real form of inheritance because changes done to the languageF are not reflected to
+  already created objects.
+*/
+
 var languageF = function(name) {
+  /**
+   OO CONCEPT: ENCAPSULATION
+
+   In all other inheritance patterns, name is an accessible property on object and could be
+   manipulated by other objects, which breaks encapsulation.
+
+   This is the only pattern that promotes information hidding so that internal details (e.g. how are data stored - lowercase / uppercase)
+   can be changed without affecting other objects as long as the interface remains unchanged.
+   The way, it is done is that any private variables created within this function (in this case only variable name)
+   are not visible from outside.
+
+  */
+
+
   var that = {};
 
   that.getName = function() {

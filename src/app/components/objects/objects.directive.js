@@ -14,7 +14,6 @@
 
     function ObjectsController (objectHelper, Ruby, JavaScript) {
       this.init = function () {
-        // TODO: Python, ES6
         this.languages = [new JavaScript(), new Ruby()];
         this.currentLanguageIndex = 0;
         this.randomCount = 3;
