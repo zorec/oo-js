@@ -1,3 +1,5 @@
+"use strict";
+
 /*
 "Exports" of this module:
  - languageF
@@ -9,7 +11,7 @@
  OO CONCEPT: INHERITANCE (functional pattern)
   As described by Douglas Crockford, functional pattern of inheritance uses simple functions,
   not constructor functions, which require use of new operator
-  That's why functional pattern can be combined with functional features of JavaScript.
+  That's why functional pattern can be combined with functional fea/tures of JavaScript.
   Another advantage is encapsulation (see below). The object is created in function and returned.
   This pattern can be combined with other inheritance patterns that's why it is the most flexible pattern of inheritance.
 
@@ -37,11 +39,11 @@ var languageF = function(name) {
 
   that.getName = function() {
     return name;
-  }
+  };
 
   that.snippet = function(objects) {
     return that.blocksSnippet(this.objects2blocks(objects));
-  }
+  };
 
   that.objects2blocks = function(objects) {
     var blocks = [],
@@ -50,13 +52,13 @@ var languageF = function(name) {
       self = this,
       value;
     // build linear blocks without hierarchy
-    blocks = objects.map(function(obj, index) {
+    blocks = objects.map(function(obj) {
       return {
         ref: obj,
         parentBlockIndex: objects.indexOf(Object.getPrototypeOf(obj)),
         variables: Object.keys(obj).map(function(varName) {
           value = obj[varName];
-          if (typeof value == 'string') {
+          if (typeof value === 'string') {
             value = '"' + value + '"';
           }
           return self.variable(varName, value);
@@ -68,14 +70,14 @@ var languageF = function(name) {
     // build children relationships
     for (var i = 0, l = blocks.length; i < l; i ++) {
       currentBlock = blocks[i];
-      if (currentBlock.parentBlockIndex == -1) {
+      if (currentBlock.parentBlockIndex === -1) {
         continue;
       }
       blocks[currentBlock.parentBlockIndex].children.push(currentBlock);
     }
 
     topLevelBlocks = blocks.filter(function(block) {
-      return block.parentBlockIndex == -1;
+      return block.parentBlockIndex === -1;
     });
 
     return topLevelBlocks;
@@ -92,7 +94,7 @@ var languageF = function(name) {
         if (currentBlock.children.length) {
           currentBlock.variables = currentBlock.variables.concat(
             self.blocksSnippet(currentBlock.children, prefix)
-          )
+          );
         }
         return currentBlock.variables.map(function(line) {
           return prefix + line;
@@ -104,10 +106,10 @@ var languageF = function(name) {
       blockCode[blockCode.length - 1] = oldPrefix + blockCode[blockCode.length - 1];
       return blockCode.join('\n');
     }).join('\n');
-  }
+  };
 
   return that;
-}
+};
 
 /* JavaScript */
 var jsF = function() {
@@ -115,14 +117,14 @@ var jsF = function() {
 
   that.variable = function(name, value) {
     return 'var ' + name + ' = ' + value + ';';
-  }
+  };
 
   that.block = function(body) {
     return ['function {', body(), '}'];
-  }
+  };
 
   return that;
-}
+};
 
 
 /* Ruby */
@@ -135,7 +137,7 @@ function rubyF() {
 
   that.block = function(body) {
     return ['begin', body(), 'end'];
-  }
+  };
 
   return that;
 }

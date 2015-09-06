@@ -1,3 +1,5 @@
+"use strict";
+
 /*
 "Exports" of this module:
  - language
@@ -32,16 +34,16 @@ var language = {
 
     return self;
   },
-}
+};
 
 language.getName = function() {
   return this.name;
-}
+};
 
 language.snippet = function(objects) {
   return this.blocksSnippet(this.objects2blocks(objects));
 
-}
+};
 
 language.objects2blocks = function(objects) {
   var blocks = [],
@@ -50,13 +52,13 @@ language.objects2blocks = function(objects) {
     self = this,
     value;
   // build linear blocks without hierarchy
-  blocks = objects.map(function(obj, index) {
+  blocks = objects.map(function(obj) {
     return {
       ref: obj,
       parentBlockIndex: objects.indexOf(Object.getPrototypeOf(obj)),
       variables: Object.keys(obj).map(function(varName) {
         value = obj[varName];
-        if (typeof value == 'string') {
+        if (typeof value === 'string') {
           value = '"' + value + '"';
         }
         return self.variable(varName, value);
@@ -68,14 +70,14 @@ language.objects2blocks = function(objects) {
   // build children relationships
   for (var i = 0, l = blocks.length; i < l; i ++) {
     currentBlock = blocks[i];
-    if (currentBlock.parentBlockIndex == -1) {
+    if (currentBlock.parentBlockIndex === -1) {
       continue;
     }
     blocks[currentBlock.parentBlockIndex].children.push(currentBlock);
   }
 
   topLevelBlocks = blocks.filter(function(block) {
-    return block.parentBlockIndex == -1;
+    return block.parentBlockIndex === -1;
   });
 
   return topLevelBlocks;
@@ -92,7 +94,7 @@ language.blocksSnippet = function(blocks, prefix) {
       if (currentBlock.children.length) {
         currentBlock.variables = currentBlock.variables.concat(
           self.blocksSnippet(currentBlock.children, prefix)
-        )
+        );
       }
       return currentBlock.variables.map(function(line) {
         return prefix + line;
@@ -104,7 +106,7 @@ language.blocksSnippet = function(blocks, prefix) {
     blockCode[blockCode.length - 1] = oldPrefix + blockCode[blockCode.length - 1];
     return blockCode.join('\n');
   }).join('\n');
-}
+};
 
 /*
   OO CONCEPT: INHERITANCE (prototypal pattern)
@@ -136,7 +138,7 @@ js.variable = function(name, value) {
 
 js.block = function(body) {
   return ['function {', body(), '}'];
-}
+};
 
 /**
 
@@ -160,7 +162,7 @@ ruby.variable = function(name, value) {
 
 ruby.block = function(body) {
   return ['begin', body(), 'end'];
-}
+};
 
 // USAGE OF MODULE:
 /*
