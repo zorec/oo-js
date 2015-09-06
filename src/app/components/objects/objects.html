@@ -3,12 +3,14 @@
   <p>
     Define JSON objects and how they inherit from each other. By default, each object inherits from all preceeding objects.
   </p>
-  <div layout="row">
-    <md-input-container>
-      <label>count</label>
-      <input type="number" min="1" ng-model="o.randomCount">
-    </md-input-container>
-    <md-button ng-click="o.generateObjects()"> Generate random objects </md-button>
+  <div>
+    <form layout="row" ng-submit="o.generateObjects()">
+      <md-input-container>
+        <label>count</label>
+        <input type="number" min="1" ng-model="o.randomCount">
+      </md-input-container>
+      <md-button ng-click=""> Generate random objects </md-button>
+    </form>
   </div>
   <div layout="row" ng-repeat="jsonObject in o.jsonObjects track by $index">
     <md-input-container flex="35">
