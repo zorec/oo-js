@@ -142,9 +142,11 @@ function rubyF() {
 
 
 // USAGE OF MODULE:
+/*
 var js = jsF();
 var ruby = rubyF();
 
 var blocks = [{a: 'obj1_a'}, {a: 'obj2_a', b: 'obj2_b'}];
 console.log(js.snippet(blocks));
 console.log(ruby.snippet(blocks));
+*/
