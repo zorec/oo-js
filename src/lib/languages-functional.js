@@ -9,9 +9,9 @@
 
 /**
  OO CONCEPT: INHERITANCE (functional pattern)
-  As described by Douglas Crockford, functional pattern of inheritance uses simple functions,
-  not constructor functions, which require use of new operator
-  That's why functional pattern can be combined with functional fea/tures of JavaScript.
+  As described by Douglas Crockford, the functional pattern of inheritance uses simple functions (not constructor functions,
+  which require "new" operator to be used)
+  Therefore, the functional pattern can be used in conjunction with functional features of JavaScript e.g. "bind".
   Another advantage is encapsulation (see below). The object is created in function and returned.
   This pattern can be combined with other inheritance patterns that's why it is the most flexible pattern of inheritance.
 

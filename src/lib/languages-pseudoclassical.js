@@ -10,16 +10,14 @@
 /*
   OO CONCEPT: INHERITANCE (pseudoclassical pattern)
 
-  This pattern was designed to appear similiar to programmers,
-  who are already familiar with classical languages.
-
-  Every function can act as a constructor function to create new objects.
-  Constructor function is often called class and objects created from it
-  are their instances.
-  Convention is to use first uppercase letter to signify that new operator
-  must be used. New operator creates new instance and assigns it to this variable.
-  This can be used to define properties and methods that are present on every instance.
-  Methods can be also declared on its prototype to be shared across multiple instances.
+This pattern was designed to appear similar for programmers,
+who are already familiar with classical languages.
+Every function can act as a constructor function to create new objects.
+A constructor function is often called class and objects created from it are their instances.
+The convention is to use a first uppercase letter to signify that new operator must be used.
+New operator creates a new instance and assigns it to this variable
+which is accessible inside a class. The variable this can be used to define
+properties and methods which are present on every instance.
 
 */
 var Language = function(name) {
