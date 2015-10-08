@@ -1,0 +1,31 @@
+function languageVariable(language, name, value) {
+  switch(language) {
+    case 'JavaScript':
+      return 'var ' + name + ' = ' + value + ';';
+    case 'Ruby':
+      return name + ' = ' + value;
+    // ...
+  }
+}
+
+var language = new JavaScript();
+var language = new Ruby();
+language.block(function() {
+  return language.variable('answer', 42);
+});
+
+Output
+> function () {
+>   var answer = 42;
+> }
+> begin
+>  answer = 42
+> end
+
+The real advantage of the OO version is that it is more easily modified. Possible changes in object-oriented version are localized to a single object. Imagine you would like to add a new language, you would just create a new object and define this polymorphic interface.
+On the other hand, in the imperative version changes would have been scattered all over the program.
+Inheritance
+Inheritance is a heavily used mechanism of code reuse. It is very common that the exactly same functionality is required across multiple types of objects. In order to prevent duplication of this shared functionality, we can define general objects and then extend these objects and create specialized objects which possess the functionality of general objects. We often refer to a general object as a parent and to a specialized object as a child. Then we say that child inherits all the functionality of the parent. This enables to build full inheritance hierarchy and capture static and dynamic relationships among objects. Similarly in JS, the attributes and methods of objects are shared.
+So far, we have already covered all  OO concepts, but without an example of inheritance. JS is an OO language without the formal syntax and there are multiple ways how to implement OO concepts. To provide you with an example of inheritance we will show you also these OO patterns:  prototypal, functional and pseudoclassical. Although we will concentrate on inheritance these patterns are not limited to it. For example, the second functional pattern provides encapsulation as well.
+On the first line in this code snippet, we create a first object with two properties. Then we clone this object and create second object. At this moment, the second object does not contain its own properties and we will add one on the third line.
+In prototypal Inheritance, objects are created (cloned) directly from other objects from which they inherit all its properties. We only specify differences from its prototype object that is an object from which they are created. Therefore, the prototype of the second object is the first object, the prototype of the first object was implicitly set to an Object, which has nil prototype. This is where the prototype chain ends. When a property is accessed on an object and it is not found on the object itself then the search continues up the prototype chain until it is found or end of prototype is reached and then 

@@ -1,0 +1,52 @@
+var pascal = function() {
+  var freeUses = 10;
+  var support = function() {
+    return (freeUses >= 0) ? 'ok' : 'not ok';
+  };
+  return {
+    use: function() {
+      freeUses -= 1;
+      return support();
+    }
+  };
+};
+var language = pascal();
+console.log(language.use()); // 'ok'
+console.log(typeof language.freeUses); // 'undefined'
+
+
+
+function languageVariable(language, name, value) {
+  switch(language) {
+    case 'JavaScript':
+      return 'var ' + name + ' = ' + value + ';';
+    case 'Ruby':
+      return name + ' = ' + value;
+    // ...
+  }
+}
+In OOP implementation, we would create an object for every programming language e.g. JavaScript or Ruby. Then we can define a method for printing a variable definition for each language (as in the corresponding case statement). In order to take advantage of polymorphism, this method would have the same name in all programming languages. This allows to eradicate the need for a switch statement this function can be simplified to polymorphic method call. The way an object is created is not important in this example, we will discuss more ways how to create objects in the following section. All that matters that we can use different objects the same way and the output is object depending.
+
+var language = new JavaScript();
+var language = new Ruby();
+language.block(function() {
+  return language.variable('answer', 42);
+});
+
+Output
+> function () {
+>   var answer = 42;
+> }
+> begin
+>  answer = 42
+> end
+
+var obj1 = {a: 'obj1_a', b: 'obj1_b'};
+var obj2 = Object.create(obj1);
+obj2.a = 'obj2_a';
+console.log(Object.getPrototypeOf(obj1)); // Object {...}
+console.log(Object.getPrototypeOf(obj2)); // obj1 {...}
+obj1.a += '_modified';
+obj1.b += '_modified';
+console.log(obj2.a); // obj2_a
+console.log(obj2.b); // obj1_b_modified
